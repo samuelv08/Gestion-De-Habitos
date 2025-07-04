@@ -1,35 +1,63 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export function Body () {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{
+      backgroundColor:'black',
+      color:'white',
+      minHeight: '100vh',
+      padding: '2rem'
+    }}>
+      <Titulo />
+      <Texto1 />
+      <Texto2 />
+      <AgregarHabito />
+    </div>
+  );
+};
+
+export function Titulo () {
+  return <h1>Gestiona tus habitos</h1>
+};
+
+export function Texto1 () {
+  return <p>Gestiona tus habitos de una manera facil y rapida</p>
 }
 
-export default App
+export function Texto2 () {
+  return <h3>Ingresa tus habitos</h3>
+}
+
+export function AgregarHabito () {
+  const [habito, setHabito] = useState('');
+  const [habitos, setHabitos] = useState([]);
+
+  function BotonAgregar () {
+    if (!habito) {
+      alert('Por favor ingresa un habito');
+      return;
+    }
+    setHabitos([...habitos, habito]);
+    setHabito('');
+  }
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Ingresa un habito"
+        value={habito}
+        onChange={(e) => setHabito(e.target.value)}
+      />
+      <button onClick={BotonAgregar}>Agregar</button>
+      <h2>Tus habitos</h2>
+      <div>
+        {habitos.map((h, i) => (
+          <div key={i}>
+            <h4>- {h}</h4>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
